@@ -12,10 +12,13 @@ Portfolio URL: https://aerial-provelone-e9b.notion.site/Jiruspak-Dulayapurle-Por
     - Create Restaurant Database
 3. Python Programming
     - Rock Paper Scissors Game
+    - Calculate Parking Fee
     - ATM Simulation (OOP)
     - Public API Get CoinGecko Data
 4. Machine Learning
-5. Statistics
+    - Classification Example
+    - Regression Example
+6. Statistics
 
 ## Contact Me
 - **Email**: jiruspak.d@gmail.com
