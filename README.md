@@ -5,13 +5,13 @@ These are my data science and analytics projects that I have learned, documented
 
 1. SQL
 2. R programming
-    - Pao Ying Chub
-    - Pizza Chatbot
+    - Rock Paper Scissors Game
+    - Pizza Restaurant Chatbot
     - Create Restaurant Database
 3. Python Programming
-    - Pao Ying Chub
-    - OOP ATM
-    - Public API
+    - Rock Paper Scissors Game
+    - ATM Simulation (OOP)
+    - Public API Get CoinGecko Data
 4. Machine Learning
 
 ## Contact Me
