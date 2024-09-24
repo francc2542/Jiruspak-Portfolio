@@ -1,46 +1,55 @@
 import requests
-import csv
-from time import sleep
+import pandas as pd
 
-# สร้างลิสต์เพื่อเก็บข้อมูลเหรียญ
-coins = []
+# URL ของ API
+url = "https://api.coingecko.com/api/v3/coins/markets"
 
-# URL สำหรับ API ของ CoinGecko
-base_url = 'https://api.coingecko.com/api/v3/coins/markets'
-params = {
-    'vs_currency': 'usd',  # แสดงราคาในสกุลเงิน USD
-    'order': 'market_cap_desc',  # เรียงลำดับตามมูลค่าตลาด
-    'per_page': 10,  # จำนวนเหรียญที่ต้องการดึงข้อมูล
-    'page': 1,  # หน้าแรก
-    'sparkline': 'false'  # ไม่ใช้ sparkline
-}
+# กำหนดจำนวนหน้าและจำนวนเหรียญต่อหน้า
+total_pages = 5  # จำนวนหน้าที่ต้องการดึงข้อมูล
+coins_per_page = 10  # จำนวนเหรียญต่อหน้า
 
-response = requests.get(base_url, params=params)
-response_js = response.json()
+# สร้างลิสต์เก็บข้อมูลทั้งหมด
+all_data = []
 
-# ตรวจสอบว่าการตอบกลับมีข้อมูลหรือไม่
-if response.status_code == 200:
-    for coin in response_js:
-        coin_id = coin["id"]
-        name = coin["name"]
-        current_price = coin["current_price"]
-        result = [coin_id, name, current_price]
-        coins.append(result)
-else:
-    print(f"Error retrieving data: {response_js.get('message', 'Unknown error')}")
+# ใช้ for loop เพื่อดึงข้อมูลจากหลายหน้า
+for i in range(1, total_pages + 1):
+    params = {
+        'vs_currency': 'usd',
+        'order': 'market_cap_desc',
+        'per_page': coins_per_page,
+        'page': i,
+        'sparkline': 'false'
+    }
 
-# หยุด 2 วินาทีก่อนทำการบันทึกข้อมูล
-sleep(2)
+    # ส่ง request ไปยัง API
+    response = requests.get(url, params=params)
 
-print(coins)
+    if response.status_code == 200:
+        # แปลงข้อมูลที่ได้รับเป็น JSON
+        data = response.json()
+        all_data.extend(data)  # เพิ่มข้อมูลลงในลิสต์
+    else:
+        print(f"Error: {response.status_code} on page {i}")
 
-# เขียนข้อมูลลงในไฟล์ CSV
-header = ["Coin ID", "Name", "Current Price (USD)"]
-with open("coins_data.csv", "w", newline='') as file:
-    writer = csv.writer(file)
-    writer.writerow(header)
-    writer.writerows(coins)
+# สร้าง DataFrame จากข้อมูลทั้งหมด
+df = pd.DataFrame(all_data)
+
+# แสดง DataFrame
+print(df.head())
+
+# เลือกแสดงคอลัมน์ที่ต้องการ
+selected_columns = ['id', 'symbol', 'name', 'current_price', 'market_cap', 'total_volume']
+df_selected = df[selected_columns]
+print(df_selected)
 
 # Read CSV File
 import pandas as pd
 pd.read_csv('coins_data.csv')
+
+# แสดง DataFrame
+df.head(10)
+
+# เลือกแสดงคอลัมน์ที่ต้องการ
+selected_columns = ['id', 'symbol', 'name', 'current_price', 'market_cap', 'total_volume']
+df_selected = df[selected_columns]
+df_selected
