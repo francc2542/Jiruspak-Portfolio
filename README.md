@@ -15,6 +15,7 @@ Portfolio URL: https://aerial-provelone-e9b.notion.site/Jiruspak-Dulayapurle-Por
     - ATM Simulation (OOP)
     - Public API Get CoinGecko Data
 4. Machine Learning
+5. Statistics
 
 ## Contact Me
 - **Email**: jiruspak.d@gmail.com
