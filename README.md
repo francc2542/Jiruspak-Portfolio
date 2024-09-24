@@ -3,7 +3,7 @@ These are my data science and analytics projects that I have learned, documented
 
 ## My personal projects
 
-1. SQL supermaket analysis
+1. SQL
 2. R programming
     - Pao Ying Chub
     - Pizza Chatbot
